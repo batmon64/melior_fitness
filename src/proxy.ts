@@ -75,6 +75,14 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|images|icons|og-image|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    /*
+     * Match all paths EXCEPT:
+     * - _next/static, _next/image  (Next.js internals)
+     * - favicon, images, svg/png   (static assets)
+     * - /api/*                     (API routes handle their own auth)
+     *                               The webhook route in particular needs raw
+     *                               body and no middleware interference.
+     */
+    '/((?!_next/static|_next/image|favicon.ico|images|icons|og-image|api|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 }

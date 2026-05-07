@@ -1,19 +1,20 @@
 'use client'
 
-import Link from 'next/link'
-import { Check, Shield, MessageCircle, Star, Users, ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { Check, Shield, MessageCircle, Star, Users } from 'lucide-react'
 import { cn, formatPrice } from '@/lib/utils'
 import { getTrainerWhatsAppUrl } from '@/constants/trainers'
 import { TRAINER_DATA } from '@/constants/trainers'
 import type { DetailedPlan } from '@/constants/plans'
 import { formatDiscount } from '@/constants/plans'
+import { BuyButton } from './BuyButton'
 
 interface PlanPurchaseCardProps {
   plan: DetailedPlan
+  isAuthenticated?: boolean
+  isAvailable?: boolean
 }
 
-export function PlanPurchaseCard({ plan }: PlanPurchaseCardProps) {
+export function PlanPurchaseCard({ plan, isAuthenticated = false, isAvailable = false }: PlanPurchaseCardProps) {
   const discount    = formatDiscount(plan)
   const trainer     = TRAINER_DATA[plan.trainerSlug]
   const waUrl       = trainer
@@ -104,12 +105,12 @@ export function PlanPurchaseCard({ plan }: PlanPurchaseCardProps) {
 
         {/* CTA buttons */}
         <div className="flex flex-col gap-3">
-          <Button variant="primary" size="lg" className="w-full" asChild>
-            <Link href={`/auth/signup?plan=${plan.slug}`}>
-              Get This Plan
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
-          </Button>
+          <BuyButton
+            plan={plan}
+            isAuthenticated={isAuthenticated}
+            isAvailable={isAvailable}
+            size="lg"
+          />
 
           <a
             href={waUrl}

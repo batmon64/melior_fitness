@@ -39,8 +39,8 @@ export default async function PlanDetailPage(
   const plan = getPlan(slug)
   if (!plan) notFound()
 
-  // Server-side purchase check — safe, never reaches the client
-  const { isAuthenticated, isPurchased, hasPdf } = await checkPurchaseStatus(slug)
+  // Server-side purchase + availability check — safe, never reaches client
+  const { isAuthenticated, isPurchased, hasPdf, isAvailable } = await checkPurchaseStatus(slug)
 
   return (
     <>
@@ -69,7 +69,11 @@ export default async function PlanDetailPage(
 
               {/* Purchase card — shown only if not yet purchased */}
               {!isPurchased && (
-                <PlanPurchaseCard plan={plan} />
+                <PlanPurchaseCard
+                  plan={plan}
+                  isAuthenticated={isAuthenticated}
+                  isAvailable={isAvailable}
+                />
               )}
             </div>
 

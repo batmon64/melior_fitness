@@ -94,22 +94,25 @@ export async function checkPurchaseStatus(slug: string): Promise<{
   isAuthenticated: boolean
   isPurchased: boolean
   hasPdf: boolean
+  /** True when the plan exists in Supabase and is available for purchase */
+  isAvailable: boolean
 }> {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  if (!user) return { isAuthenticated: false, isPurchased: false, hasPdf: false }
-
-  // Find plan in Supabase
+  // Find plan in Supabase (regardless of auth)
   const { data: planData } = await (supabase
     .from('diet_plans') as ReturnType<typeof supabase.from>)
     .select('id, document_path')
     .eq('slug', slug)
+    .eq('is_published', true)
     .single()
 
   const plan = planData as { id: string; document_path: string | null } | null
+  const isAvailable = !!plan
 
-  if (!plan) return { isAuthenticated: true, isPurchased: false, hasPdf: false }
+  if (!user) return { isAuthenticated: false, isPurchased: false, hasPdf: false, isAvailable }
+  if (!plan) return { isAuthenticated: true, isPurchased: false, hasPdf: false, isAvailable: false }
 
   const { count } = await supabase
     .from('purchases')
@@ -120,7 +123,8 @@ export async function checkPurchaseStatus(slug: string): Promise<{
 
   return {
     isAuthenticated: true,
-    isPurchased: (count ?? 0) > 0,
-    hasPdf: !!plan.document_path,
+    isPurchased:     (count ?? 0) > 0,
+    hasPdf:          !!plan.document_path,
+    isAvailable,
   }
 }

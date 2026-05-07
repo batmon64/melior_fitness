@@ -42,6 +42,10 @@ export interface ProfileRow {
   diet_preference:      DietPreference | null
   activity_level:       ActivityLevel | null
   onboarding_completed: boolean
+  /** Added via ALTER TABLE migration */
+  medical_conditions:   string | null
+  /** Added via ALTER TABLE migration */
+  experience_level:     string | null
   created_at:           string
   updated_at:           string
 }
