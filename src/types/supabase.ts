@@ -81,6 +81,8 @@ export interface DietPlanRow {
   is_popular:     boolean
   thumbnail_url:  string | null
   stripe_price_id: string | null
+  /** Path in plan-documents bucket: e.g. "{plan_uuid}/fat-loss-pro.pdf" */
+  document_path:  string | null
   created_at:     string
   updated_at:     string
 }
@@ -173,6 +175,7 @@ export interface Database {
           duration_weeks: number; meals_per_day: number; calories_range: string
           features?: string[]; is_published?: boolean; is_popular?: boolean
           thumbnail_url?: string | null; stripe_price_id?: string | null
+          document_path?: string | null
         }
         Update: Partial<Omit<DietPlanRow, 'id' | 'trainer_id' | 'created_at' | 'updated_at'>>
       }
