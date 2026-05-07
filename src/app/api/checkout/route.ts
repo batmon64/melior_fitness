@@ -3,6 +3,8 @@ import { z } from 'zod'
 import { stripe } from '@/lib/stripe/client'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/server'
+import { rateLimit, getClientIp, rateLimitExceededResponse } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 // ── Input validation ──────────────────────────────────────────────────────────
 const schema = z.object({
@@ -11,6 +13,15 @@ const schema = z.object({
 
 // ── POST /api/checkout ────────────────────────────────────────────────────────
 export async function POST(request: NextRequest) {
+  // Rate limit: 5 checkout attempts per IP per minute
+  const ip     = getClientIp(request)
+  const rl     = rateLimit(`checkout:${ip}`, 5, 60_000)
+  if (!rl.success) {
+    logger.securityEvent('checkout_rate_limited', { ip })
+    return rateLimitExceededResponse(rl.resetAt)
+  }
+  logger.apiRequest('POST', '/api/checkout', ip)
+
   try {
     // 1. Parse + validate body
     let body: unknown

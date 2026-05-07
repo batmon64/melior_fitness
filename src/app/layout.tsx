@@ -19,6 +19,10 @@ const jost = Jost({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://melior.fit'),
+  verification: {
+    // Add Google / Bing site verification tokens here when deploying
+    // google: 'your-google-verification-token',
+  },
   title: {
     default: 'Melior Fitness — Premium Coaching & Diet Plans',
     template: '%s | Melior Fitness',
@@ -83,7 +87,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-[var(--color-background)] text-[var(--color-foreground)] font-[var(--font-sans)] selection:bg-[rgba(202,138,4,0.3)] selection:text-[var(--color-brand-cream)]">
-        {children}
+        {/* Skip to main content — accessibility for keyboard/screen reader users */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-[var(--color-brand-gold)] focus:text-[var(--color-brand-black)] focus:font-semibold focus:text-sm focus:font-[var(--font-sans)]"
+        >
+          Skip to main content
+        </a>
+        <div id="main-content">
+          {children}
+        </div>
       </body>
     </html>
   )

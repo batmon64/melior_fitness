@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Block private/authenticated areas
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /trainer-dashboard
+Disallow: /onboarding
+Disallow: /api/
+Disallow: /payment/
+
+# Allow public areas
+Allow: /plans
+Allow: /coaching
+Allow: /trainers
+Allow: /auth/login
+Allow: /auth/signup
+
+Sitemap: https://melior.fit/sitemap.xml
