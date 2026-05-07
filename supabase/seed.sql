@@ -1,0 +1,198 @@
+-- ============================================================
+-- MELIOR FITNESS — Seed Data
+-- Run AFTER migrations 001, 002, 003
+-- IMPORTANT: Replace trainer UUIDs with real auth.users IDs
+--            after creating trainer accounts via Supabase Auth.
+-- ============================================================
+
+-- ============================================================
+-- STEP 1: Create trainer auth accounts via Supabase Dashboard
+--   → Authentication → Users → Add User
+--   vishal@melior.fit  / strongpassword123
+--   sharon@melior.fit  / strongpassword456
+-- Then update their profiles to role='trainer':
+-- ============================================================
+
+-- Update Vishal's role (replace with real UUID from auth.users)
+-- UPDATE profiles SET role = 'trainer' WHERE email = 'vishal@melior.fit';
+-- UPDATE profiles SET role = 'trainer' WHERE email = 'sharon@melior.fit';
+
+-- ============================================================
+-- STEP 2: Insert trainer profile rows
+-- Replace <VISHAL_UUID> and <SHARON_UUID> with actual UUIDs
+-- from the profiles table after step 1.
+-- ============================================================
+
+-- INSERT INTO trainers (user_id, slug, title, bio, specialization, experience_years, clients_helped, certifications, achievements, whatsapp)
+-- VALUES
+-- (
+--   '<VISHAL_UUID>',
+--   'vishal',
+--   'Head Coach',
+--   'Vishal has spent 8 years perfecting the science of body recomposition. His data-driven approach to fat loss combined with strength programming has transformed hundreds of physiques across India.',
+--   'Fat Loss & Strength Transformation',
+--   8,
+--   500,
+--   ARRAY['Certified Fitness Coach', 'Online Transformation Specialist', 'Precision Nutrition Level 1'],
+--   ARRAY['Helped 500+ clients achieve their goals', 'Certified Fitness Coach with 8 years experience', 'Average client loses 8–12 kg in 12 weeks'],
+--   '+919999999999'
+-- ),
+-- (
+--   '<SHARON_UUID>',
+--   'sharon',
+--   'Nutrition & Muscle Coach',
+--   'Sharon blends precision nutrition with evidence-based training to build strong, athletic bodies. Her approach focuses on sustainable muscle building without sacrificing health or lifestyle.',
+--   'Muscle Building & Nutrition',
+--   6,
+--   300,
+--   ARRAY['Sports Nutrition Specialist', 'Certified Personal Trainer', 'Yoga Alliance RYT-200'],
+--   ARRAY['Sports Nutrition Specialist', 'Helped 300+ clients build lean muscle', 'Specialist in women''s fitness & body composition'],
+--   '+919999999998'
+-- );
+
+-- ============================================================
+-- STEP 3: Diet Plans — replace <VISHAL_TRAINER_ID> and <SHARON_TRAINER_ID>
+--         with the UUIDs from the trainers table.
+-- ============================================================
+
+-- INSERT INTO diet_plans (trainer_id, title, slug, description, category, price, original_price, duration_weeks, meals_per_day, calories_range, features, is_published, is_popular)
+-- VALUES
+-- (
+--   '<VISHAL_TRAINER_ID>',
+--   'Fat Loss Starter',
+--   'fat-loss-starter',
+--   'A structured 4-week plan designed to ignite your metabolism and shed initial body fat with sustainable habits.',
+--   'fat_loss',
+--   999,
+--   1499,
+--   4,
+--   4,
+--   '1400–1700 kcal',
+--   ARRAY['Full meal plan with recipes', 'Macro breakdowns', 'Grocery shopping list', 'Email support'],
+--   TRUE,
+--   FALSE
+-- ),
+-- (
+--   '<VISHAL_TRAINER_ID>',
+--   'Fat Loss Pro',
+--   'fat-loss-pro',
+--   '12-week progressive cutting plan for those serious about sustainable fat loss and visible abs.',
+--   'fat_loss',
+--   2499,
+--   3499,
+--   12,
+--   5,
+--   '1600–2000 kcal',
+--   ARRAY['Progressive caloric cycling', 'Refeed days included', 'Weekly check-in templates', '24/7 WhatsApp support', 'Supplement guide'],
+--   TRUE,
+--   TRUE
+-- ),
+-- (
+--   '<SHARON_TRAINER_ID>',
+--   'Muscle Builder — Beginner',
+--   'muscle-builder-beginner',
+--   'The perfect starting point for muscle building. Learn to eat for growth with a structured 6-week plan.',
+--   'muscle_gain',
+--   1299,
+--   1799,
+--   6,
+--   5,
+--   '2200–2600 kcal',
+--   ARRAY['High-protein meal templates', 'Pre/post workout nutrition', 'Calorie surplus calculator', 'Supplement guide'],
+--   TRUE,
+--   FALSE
+-- ),
+-- (
+--   '<SHARON_TRAINER_ID>',
+--   'Lean Bulk Protocol',
+--   'lean-bulk-protocol',
+--   '16-week clean bulk plan to pack on maximum muscle with minimal fat gain.',
+--   'muscle_gain',
+--   3299,
+--   4499,
+--   16,
+--   6,
+--   '2800–3400 kcal',
+--   ARRAY['Caloric periodization', 'Deload week nutrition', 'Blood work interpretation guide', '1-on-1 monthly call', 'Custom macro targets'],
+--   TRUE,
+--   TRUE
+-- ),
+-- (
+--   '<SHARON_TRAINER_ID>',
+--   'Veg Fat Loss Plan',
+--   'veg-fat-loss-plan',
+--   'Prove that plant-based eating can power serious fat loss. 8 weeks of high-protein vegetarian meals.',
+--   'vegetarian',
+--   1499,
+--   1999,
+--   8,
+--   4,
+--   '1500–1800 kcal',
+--   ARRAY['100% vegetarian meals', 'High-protein recipes', 'Indian cuisine friendly', 'Snack ideas included'],
+--   TRUE,
+--   FALSE
+-- ),
+-- (
+--   '<VISHAL_TRAINER_ID>',
+--   'Keto Reset',
+--   'keto-reset',
+--   'Kickstart fat adaptation with a guided 6-week ketogenic diet plan — optimized for Indian tastes.',
+--   'keto',
+--   1799,
+--   2499,
+--   6,
+--   3,
+--   '1600–1900 kcal',
+--   ARRAY['Keto induction protocol', 'Indian keto recipes', 'Electrolyte guide', 'Carb cycling introduction'],
+--   TRUE,
+--   FALSE
+-- );
+
+-- ============================================================
+-- STEP 4: Testimonials — replace trainer IDs
+-- ============================================================
+
+-- INSERT INTO testimonials (trainer_id, display_name, location, quote, before_weight, after_weight, weight_lost, duration, rating, is_published)
+-- VALUES
+-- (
+--   '<VISHAL_TRAINER_ID>',
+--   'Arjun Sharma',
+--   'Mumbai',
+--   'Vishal''s Fat Loss Pro plan is the only thing that has ever worked for me. The structure, the support, the results — everything exceeded my expectations.',
+--   '94 kg', '76 kg', '18 kg', '14 weeks', 5, TRUE
+-- ),
+-- (
+--   '<SHARON_TRAINER_ID>',
+--   'Priya Nair',
+--   'Bangalore',
+--   'Sharon''s vegetarian plan showed me that plant-based eating can be absolutely delicious and effective.',
+--   '68 kg', '58 kg', '10 kg', '10 weeks', 5, TRUE
+-- ),
+-- (
+--   '<SHARON_TRAINER_ID>',
+--   'Rahul Verma',
+--   'Delhi',
+--   'The Lean Bulk Protocol is the most comprehensive nutrition guide I''ve encountered. Sharon''s attention to detail made all the difference.',
+--   '72 kg', '80 kg', NULL, '16 weeks', 5, TRUE
+-- ),
+-- (
+--   '<VISHAL_TRAINER_ID>',
+--   'Kavya Reddy',
+--   'Hyderabad',
+--   'I tried everything before Melior. This was the first time I had a real plan tailored to my lifestyle.',
+--   '80 kg', '65 kg', '15 kg', '12 weeks', 5, TRUE
+-- );
+
+-- ============================================================
+-- QUICK SETUP CHECKLIST
+-- ============================================================
+-- [ ] Run 001_initial_schema.sql
+-- [ ] Run 002_rls_policies.sql
+-- [ ] Run 003_storage.sql
+-- [ ] Create trainer accounts in Supabase Auth
+-- [ ] Update trainer profiles to role='trainer'
+-- [ ] Insert trainer rows into trainers table
+-- [ ] Insert diet_plans rows
+-- [ ] Insert testimonials rows
+-- [ ] Add Supabase credentials to .env.local
+-- [ ] Test auth flow locally

@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ============================================
+   MELIOR FITNESS — DESIGN SYSTEM TOKENS
+   Design: Liquid Glass | Dark Luxury
+   Fonts: Bodoni Moda (headings) / Jost (body)
+   ============================================ */
+
+@theme inline {
+  /* --- Brand Colors --- */
+  --color-brand-black:    #0A0908;
+  --color-brand-dark:     #1C1917;
+  --color-brand-stone:    #44403C;
+  --color-brand-gold:     #CA8A04;
+  --color-brand-gold-lt:  #EAB308;
+  --color-brand-cream:    #FAFAF9;
+  --color-brand-muted:    #A8A29E;
+  --color-brand-border:   #292524;
+
+  /* --- Semantic Aliases --- */
+  --color-background:     var(--color-brand-black);
+  --color-surface:        var(--color-brand-dark);
+  --color-surface-raised: var(--color-brand-stone);
+  --color-foreground:     var(--color-brand-cream);
+  --color-muted:          var(--color-brand-muted);
+  --color-accent:         var(--color-brand-gold);
+  --color-border:         var(--color-brand-border);
+
+  /* --- Typography --- */
+  --font-heading: var(--font-bodoni);
+  --font-sans:    var(--font-jost);
+
+  /* --- Spacing scale --- */
+  --spacing-section: 7rem;
+
+  /* --- Border radius --- */
+  --radius-card: 1rem;
+  --radius-btn:  0.625rem;
+
+  /* --- Z-index scale --- */
+  --z-base:    10;
+  --z-overlay: 20;
+  --z-modal:   30;
+  --z-toast:   50;
+  --z-nav:     40;
+
+  /* --- Shadows (liquid glass) --- */
+  --shadow-glass: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
+  --shadow-glow:  0 0 40px rgba(202,138,4,0.18);
+  --shadow-card:  0 4px 24px rgba(0,0,0,0.35);
+
+  /* --- Animation --- */
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   500ms;
+  --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================
+   BASE RESET & GLOBAL STYLES
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100dvh;
+  line-height: 1.6;
+}
+
+/* --- Heading defaults --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), Georgia, serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+/* Glass card effect */
+.glass {
+  background: rgba(28, 25, 23, 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: var(--shadow-glass);
+}
+
+/* Subtle glass variant */
+.glass-subtle {
+  background: rgba(28, 25, 23, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Gold gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #CA8A04 0%, #EAB308 50%, #CA8A04 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Cinematic gradient background */
+.bg-cinematic {
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(202, 138, 4, 0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 40% at 80% 100%, rgba(28, 25, 23, 0.8) 0%, transparent 60%),
+              var(--color-brand-black);
+}
+
+/* Noise texture overlay */
+.noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-brand-black); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-stone);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-brand-gold); }
+
+/* ============================================
+   FOCUS STATES (Accessibility)
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ============================================
+   SELECTION COLOR
+   ============================================ */
+
+::selection {
+  background: rgba(202, 138, 4, 0.3);
+  color: var(--color-brand-cream);
+}
