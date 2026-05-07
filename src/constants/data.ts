@@ -1,11 +1,11 @@
 import type { Trainer, DietPlanCard, Testimonial, FAQItem, NavLink } from '@/types'
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Home', href: '/' },
+  { label: 'Home',     href: '/' },
   { label: 'Trainers', href: '/#trainers' },
-  { label: 'Plans', href: '/#plans' },
-  { label: 'Results', href: '/#results' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Plans',    href: '/plans' },
+  { label: 'Coaching', href: '/coaching' },
+  { label: 'Results',  href: '/#results' },
 ]
 
 export const TRAINERS: Trainer[] = [

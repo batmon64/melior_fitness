@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import {
   LayoutDashboard, BookOpen, MessageSquare, TrendingUp,
-  Settings, ShoppingBag, Users, LogOut, ChevronRight,
+  Settings, ShoppingBag, Users, LogOut, ChevronRight, Dumbbell,
 } from 'lucide-react'
 import { cn, getInitials } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
@@ -20,8 +20,9 @@ const NAV = [
 ]
 
 const EXTERNAL = [
-  { href: '/plans',     icon: ShoppingBag, label: 'Browse Plans' },
-  { href: '/#trainers', icon: Users,       label: 'Our Trainers' },
+  { href: '/plans',            icon: ShoppingBag, label: 'Browse Plans' },
+  { href: '/coaching/request', icon: Dumbbell,    label: 'Request Coaching' },
+  { href: '/#trainers',        icon: Users,       label: 'Our Trainers' },
 ]
 
 interface DashboardSidebarProps {
