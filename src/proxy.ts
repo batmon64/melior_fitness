@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 /** Routes that require authentication */
-const PROTECTED_ROUTES = ['/dashboard', '/onboarding', '/checkout']
+const PROTECTED_ROUTES = ['/dashboard', '/onboarding', '/checkout', '/admin', '/trainer-dashboard']
 
 /** Routes that require trainer/admin role */
 const TRAINER_ROUTES = ['/trainer-dashboard']
